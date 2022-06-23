@@ -67,8 +67,10 @@ grep -e "${DOWNSTREAM_NS}.${JBOSS_UPSTREAM_NAME}" -r . | cut -f1 -d: | \
 while
   read -r file_to_edit
 do
+  echo -n "- editing ${file_to_edit}..."
   sed -i "${file_to_edit}"  \
       -e "s;${DOWNSTREAM_NS}.${JBOSS_UPSTREAM_NAME};${DOWNSTREAM_NS}.${JBOSS_DOWNSTREAM_NAME};"
+  echo 'Done.'
 done
 sed -e
 
