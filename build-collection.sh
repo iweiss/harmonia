@@ -1,5 +1,5 @@
 #!/bin/bash
-set -eo pipefail
+set -xeo pipefail
 
 readonly GALAXY_YML='galaxy.yml'
 readonly UPSTREAM_NS='middleware_automation'
