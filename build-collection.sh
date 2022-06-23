@@ -68,8 +68,7 @@ while
   read -r file_to_edit
 do
   echo -n "- editing ${file_to_edit}..."
-  echo sed -i "${file_to_edit}"  \
-      -e "s;${DOWNSTREAM_NS}.${JBOSS_UPSTREAM_NAME};${DOWNSTREAM_NS}.${JBOSS_DOWNSTREAM_NAME};"
+  echo sed -i "${file_to_edit}" -e "s;${DOWNSTREAM_NS}.${JBOSS_UPSTREAM_NAME};${DOWNSTREAM_NS}.${JBOSS_DOWNSTREAM_NAME};"
   echo 'Done.'
 done
 sed -e
