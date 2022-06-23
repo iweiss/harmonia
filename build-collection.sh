@@ -62,6 +62,7 @@ if [ -n "${VERSION}" ]; then
 fi
 
 echo "Replace dependency to ${DOWNSTREAM_NS}.${JBOSS_UPSTREAM_NAME} by ${DOWNSTREAM_NS}.${JBOSS_DOWNSTREAM_NAME} (if any)."
+set +e
 grep -e "${DOWNSTREAM_NS}.${JBOSS_UPSTREAM_NAME}" -r . | cut -f1 -d: | \
 while
   read -r file_to_edit
@@ -69,6 +70,7 @@ do
   sed -i "${file_to_edit}"  \
       -e "s;${DOWNSTREAM_NS}.${JBOSS_UPSTREAM_NAME};${DOWNSTREAM_NS}.${JBOSS_DOWNSTREAM_NAME};"
 done
+sed -e
 
 echo 'Display changes performed on code base:'
 git --no-pager diff --no-color -w .
