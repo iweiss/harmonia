@@ -7,8 +7,8 @@ readonly PATH_TO_REQUIREMENTS_TEMPLATE=${PATH_TO_REQUIREMENTS_TEMPLATE:-'molecul
 
 generateRequirementsFromCItemplateIfProvided() {
   local path_to_collection=${1}
-  local path_to_template=${2}
-  local path_to_requirements_file=${3}
+  local path_to_requirements_file=${2}
+  local path_to_template=${3}
 
   if [ ! -e "${path_to_template}" ]; then
     echo "Path to template to generate requirements.yml is invalid: ${path_to_template}, aborting."
