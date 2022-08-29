@@ -18,7 +18,7 @@ generateRequirementsFromCItemplateIfProvided() {
   if [ -d "${path_to_collection}" ]; then
     ansible -m template \
             -a "src=${path_to_template} dest=${path_to_requirements_file}" \
-            -e path_to_collection="${path_to_collection}"
+            -e path_to_collection="${path_to_collection}" \
             localhost
   else
     echo "Invalid path to collection (does not exists or not a directory): ${path_to_collection}."
@@ -31,6 +31,7 @@ copyCollectionFrom() {
   local workdir=${WORKDIR:-"${2}"}
 
   if [ -d "${path_to_collection}" ]; then
+    rm -rf "${workdir}"/*
     echo -n "Fetching last build from ${path_to_collection}..."
     cp -r "${path_to_collection}"/* "${workdir}"
     cp "${path_to_collection}/.ansible-lint" "${workdir}"
