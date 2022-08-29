@@ -67,10 +67,12 @@ if [ -n "${LAST_SUCCESS_FULL_BUILD_ID}" ]; then
      echo "PARENT_JOB_HOME not provided and required for this kind of build, aborting..."
      exit 3
   fi
-  readonly PATH_TO_COLLECTION="${PARENT_JOB_HOME}/builds/${LAST_SUCCESS_FULL_BUILD_ID}/archive/workdir/downstream"
+  readonly PATH_TO_COLLECTION="${PARENT_JOB_HOME}/builds/${LAST_SUCCESS_FULL_BUILD_ID}/archive/workdir/downstream/${PROJECT_NAME}/"
   if [[ "${JOB_NAME}" =~ .*"-dot".* ]]; then
     echo "${JOB_NAME} will use the latest available collection to run the tests."
-    generateRequirementsFromCItemplateIfProvided "${PATH_TO_COLLECTION}" \
+    readonly PATH_TO_COLLECTION_ARCHIVE=$(ls -1 "${PATH_TO_COLLECTION}/${DOWNSTREAM_NS}-${PROJECT_NAME}"*.tgz)
+    echo "Collection archive used: ${PATH_TO_COLLECTION_ARCHIVE}."
+    generateRequirementsFromCItemplateIfProvided "${PATH_TO_COLLECTION_ARCHIVE}" \
                                                  "${PATH_TO_MOLECULE_REQUIREMENTS_FILE}" \
                                                  "${PATH_TO_REQUIREMENTS_TEMPLATE}"
   else
