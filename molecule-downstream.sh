@@ -18,7 +18,7 @@ generateRequirementsFromCItemplateIfProvided() {
   fi
 
   if [ -e "${path_to_collection}" ]; then
-    path_to_collection_archive=$(ls "${PROJECT_NAME}/${DOWNSTREAM_NS}-${PROJECT_NAME}"*.tgz)
+    path_to_collection_archive=$(ls "${PROJECT_NAME}/${DOWNSTREAM_NS}-${PROJECT_NAME}"*.tar.gz)
 
     ansible -m template \
             -a "src=${path_to_template} dest=${path_to_requirements_file}" \
