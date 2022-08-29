@@ -17,7 +17,7 @@ generateRequirementsFromCItemplateIfProvided() {
     exit 4
   fi
 
-  if [ -d "${path_to_collection}" ]; then
+  if [ -e "${path_to_collection}" ]; then
     path_to_collection_archive=$(ls "${PROJECT_NAME}/${DOWNSTREAM_NS}-${PROJECT_NAME}"*.tgz)
 
     ansible -m template \
