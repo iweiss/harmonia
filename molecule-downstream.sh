@@ -5,6 +5,8 @@ set -eo pipefail
 readonly PATH_TO_MOLECULE_REQUIREMENTS_FILE=${PATH_TO_MOLECULE_REQUIREMENTS_FILE:-'molecule/requirements.yml'}
 readonly PATH_TO_REQUIREMENTS_TEMPLATE=${PATH_TO_REQUIREMENTS_TEMPLATE:-'molecule/.ci_requirements.yml.j2'}
 
+readonly DOWNSTREAM_NS='redhat'
+
 generateRequirementsFromCItemplateIfProvided() {
   local path_to_collection=${1}
   local path_to_requirements_file=${2}
@@ -18,7 +20,7 @@ generateRequirementsFromCItemplateIfProvided() {
   if [ -d "${path_to_collection}" ]; then
     ansible -m template \
             -a "src=${path_to_template} dest=${path_to_requirements_file}" \
-            -e path_to_collection="${path_to_collection}" \
+            -e path_to_collection="${path_to_collection}/"${PROJECT_NAME}/${DOWNSTREAM_NS}-${PROJECT_NAME}*.tgz \
             localhost
   else
     echo "Invalid path to collection (does not exists or not a directory): ${path_to_collection}."
