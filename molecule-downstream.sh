@@ -8,7 +8,7 @@ readonly PATH_TO_REQUIREMENTS_TEMPLATE=${PATH_TO_REQUIREMENTS_TEMPLATE:-'molecul
 readonly DOWNSTREAM_NS='redhat'
 
 generateRequirementsFromCItemplateIfProvided() {
-  local path_to_collection=${1}
+  local path_to_collection_archive=${1}
   local path_to_requirements_file=${2}
   local path_to_template=${3}
 
@@ -17,15 +17,13 @@ generateRequirementsFromCItemplateIfProvided() {
     exit 4
   fi
 
-  if [ -e "${path_to_collection}" ]; then
-    path_to_collection_archive=$(ls "${PROJECT_NAME}/${DOWNSTREAM_NS}-${PROJECT_NAME}"*.tar.gz)
-
+  if [ -e "${path_to_collection_archive}" ]; then
     ansible -m template \
             -a "src=${path_to_template} dest=${path_to_requirements_file}" \
             -e path_to_collection="${path_to_collection_archive}" \
             localhost
   else
-    echo "Invalid path to collection (does not exists or not a directory): ${path_to_collection}."
+    echo "Invalid path to collection (does not exists or not a directory): ${path_to_collection_archive}."
     exit 5
   fi
 }
