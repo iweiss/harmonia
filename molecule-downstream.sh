@@ -18,9 +18,11 @@ generateRequirementsFromCItemplateIfProvided() {
   fi
 
   if [ -d "${path_to_collection}" ]; then
+    path_to_collection_archive=$(ls "${PROJECT_NAME}/${DOWNSTREAM_NS}-${PROJECT_NAME}"*.tgz)
+
     ansible -m template \
             -a "src=${path_to_template} dest=${path_to_requirements_file}" \
-            -e path_to_collection="${path_to_collection}/"${PROJECT_NAME}/${DOWNSTREAM_NS}-${PROJECT_NAME}*.tgz \
+            -e path_to_collection="${path_to_collection_archive}" \
             localhost
   else
     echo "Invalid path to collection (does not exists or not a directory): ${path_to_collection}."
