@@ -23,7 +23,7 @@ runMolecule() {
   local scenario_driver_name=${2}
 
    # shellcheck disable=SC2086
-   molecule ${MOLECULE_DEBUG} test ${config_scenario} ${scenario_driver_name} -- --ssh-extra-args="-o StrictHostKeyChecking=no"
+   molecule ${DEBUG_MOLECULE} test ${config_scenario} ${scenario_driver_name} -- --ssh-extra-args="-o StrictHostKeyChecking=no"
 }
 
 executeRequestedScenarios() {
@@ -62,7 +62,7 @@ runMoleculeScenario() {
     executeRequestedScenarios "${scenario_name}" "${scenario_driver_name}"
   else
     # shellcheck disable=SC2086
-    molecule ${MOLECULE_DEBUG} test "${scenario_name}" -d "${scenario_driver_name}"
+    molecule ${DEBUG_MOLECULE} test "${scenario_name}" -d "${scenario_driver_name}"
     MOLECULE_RUN_STATUS="${?}"
   fi
   readonly MOLECULE_RUN_STATUS
@@ -166,7 +166,7 @@ readonly ERIS_HOME=${ERIS_HOME:-"${WORKSPACE}/eris"}
 export ERIS_HOME
 
 readonly WORKDIR=${WORKDIR:-"$(pwd)/workdir"}
-readonly MOLECULE_DEBUG=${MOLECULE_DEBUG:-'--no-debug'}
+readonly DEBUG_MOLECULE=${DEBUG_MOLECULE:-'--no-debug'}
 readonly SCENARIO_NAME=${SCENARIO_NAME:-'--all'}
 readonly SCENARIO_DRIVER_NAME=${2:-'delegated'}
 
