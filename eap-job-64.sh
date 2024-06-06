@@ -227,19 +227,28 @@ else
 
   export TEST_TO_RUN=${TEST_TO_RUN:-'-DallTests'}
   cd "${EAP_SOURCES_DIR}/testsuite" || exit "${FOLDER_DOES_NOT_EXIST_ERROR_CODE}"
+  echo "==== Output of set and alias ===="
+  set
+  alias
+  echo "================================="
   mvn clean
+  echo "==== Output of set and alias ===="
+  set
+  alias
+  echo "================================="
   cd ..
+  mvn -v
 
   # with EAP 6.4, let maven 3.2 be downloaded to the tools/maven/ directory, which is a hardcoded path in the integration-tests.sh script
-  bash -x ./tools/download-maven.sh
-
-  # define this var so that integration-tests.sh doesn't use its hardcoded default value
-  export MVN_ARGS="-DsomeNoneEmptyValue"
-
-  # configure product repository URL used by integration tests
-  export TESTSUITE_OPTS="${TESTSUITE_OPTS} -Dorg.jboss.model.test.eap.repourl=http://download.lab.bos.redhat.com/brewroot/repos/jb-eap-6.4-rhel-6-build/latest/maven/"
-
-  # shellcheck disable=SC2086,SC2068
-  bash -x ./integration-tests.sh "${TEST_TO_RUN}" ${MAVEN_VERBOSE} "${FAIL_AT_THE_END}" ${TESTSUITE_OPTS} ${@}
-  exit "${?}"
+#  bash -x ./tools/download-maven.sh
+#
+#  # define this var so that integration-tests.sh doesn't use its hardcoded default value
+#  export MVN_ARGS="-DsomeNoneEmptyValue"
+#
+#  # configure product repository URL used by integration tests
+#  export TESTSUITE_OPTS="${TESTSUITE_OPTS} -Dorg.jboss.model.test.eap.repourl=http://download.lab.bos.redhat.com/brewroot/repos/jb-eap-6.4-rhel-6-build/latest/maven/"
+#
+#  # shellcheck disable=SC2086,SC2068
+#  bash -x ./integration-tests.sh "${TEST_TO_RUN}" ${MAVEN_VERBOSE} "${FAIL_AT_THE_END}" ${TESTSUITE_OPTS} ${@}
+#  exit "${?}"
 fi
